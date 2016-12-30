@@ -110,7 +110,9 @@
           "serverSideSorting": false,
           "serverSidePaging": false,
           "detailHeaderFieldSource": "dataBound",
-          "detailHeaderField": "descripcion"
+          "detailHeaderField": "descripcion",
+          "detailSubHeaderField": "placa",
+          "detailDescriptionField": "descripcion"
         }
       ],
       "title": "Unidades",
@@ -133,24 +135,14 @@
               "components": [
                 {
                   "type": "kendo-ui-mobile:editableListFormField",
-                  "name": "guia",
+                  "name": "vale",
                   "dataBindingRelationChildren": "[]",
                   "dataBindingMultipleSelectChildren": "[]",
-                  "title": "Número de Guía",
+                  "title": "Vale de combustible",
                   "inputType": "image",
                   "titlePosition": "top",
                   "alignment": "center",
-                  "dataBindingImage": "guia"
-                },
-                {
-                  "type": "kendo-ui-mobile:editableListFormField",
-                  "name": "kminicio",
-                  "dataBindingRelationChildren": "[]",
-                  "dataBindingMultipleSelectChildren": "[]",
-                  "title": "Heading",
-                  "inputType": "heading",
-                  "headingSize": "h1",
-                  "dataBindingOptional": "kminicio"
+                  "dataBindingImage": "vale"
                 },
                 {
                   "type": "kendo-ui-mobile:editableListFormField",
@@ -174,14 +166,24 @@
                 },
                 {
                   "type": "kendo-ui-mobile:editableListFormField",
-                  "name": "vale",
+                  "name": "kminicio",
                   "dataBindingRelationChildren": "[]",
                   "dataBindingMultipleSelectChildren": "[]",
-                  "title": "Vale de combustible",
+                  "title": "Heading",
+                  "inputType": "heading",
+                  "headingSize": "h1",
+                  "dataBindingOptional": "kminicio"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "guia",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "Número de Guía",
                   "inputType": "image",
                   "titlePosition": "top",
                   "alignment": "center",
-                  "dataBindingImage": "vale"
+                  "dataBindingImage": "guia"
                 }
               ],
               "name": "editableListForm13",
@@ -204,26 +206,13 @@
                 },
                 {
                   "type": "kendo-ui-mobile:editableListFormField",
-                  "name": "guia",
+                  "name": "vale",
                   "dataBindingRelationChildren": "[]",
                   "dataBindingMultipleSelectChildren": "[]",
-                  "title": "Número de guía",
-                  "inputType": "fileUpload",
+                  "title": "Vale de combustible",
+                  "inputType": "barcodeScanner",
                   "titlePosition": "top",
-                  "fileUploadPlaceholder": "Foto de la guía",
-                  "dataBinding": "guia"
-                },
-                {
-                  "type": "kendo-ui-mobile:editableListFormField",
-                  "name": "viaticos",
-                  "dataBindingRelationChildren": "[]",
-                  "dataBindingMultipleSelectChildren": "[]",
-                  "title": "Viaticos",
-                  "inputType": "text",
-                  "titlePosition": "top",
-                  "inputTextType": "text",
-                  "placeholder": "Ingrese el monto de los viáticos",
-                  "dataBinding": "viaticos"
+                  "dataBinding": "vale"
                 },
                 {
                   "type": "kendo-ui-mobile:editableListFormField",
@@ -249,13 +238,26 @@
                 },
                 {
                   "type": "kendo-ui-mobile:editableListFormField",
-                  "name": "vale",
+                  "name": "viaticos",
                   "dataBindingRelationChildren": "[]",
                   "dataBindingMultipleSelectChildren": "[]",
-                  "title": "Vale de combustible",
-                  "inputType": "barcodeScanner",
+                  "title": "Viaticos",
+                  "inputType": "text",
                   "titlePosition": "top",
-                  "dataBinding": "vale"
+                  "inputTextType": "text",
+                  "placeholder": "Ingrese el monto de los viáticos",
+                  "dataBinding": "viaticos"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "guia",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "Número de guía",
+                  "inputType": "fileUpload",
+                  "titlePosition": "top",
+                  "fileUploadPlaceholder": "Foto de la guía",
+                  "dataBinding": "guia"
                 }
               ],
               "name": "editableListForm14",
@@ -278,26 +280,13 @@
                 },
                 {
                   "type": "kendo-ui-mobile:editableListFormField",
-                  "name": "guia",
+                  "name": "vale",
                   "dataBindingRelationChildren": "[]",
                   "dataBindingMultipleSelectChildren": "[]",
-                  "title": "Número de guía",
-                  "inputType": "fileUpload",
+                  "title": "Vale de combustible",
+                  "inputType": "barcodeScanner",
                   "titlePosition": "top",
-                  "fileUploadPlaceholder": "Foto de guía",
-                  "dataBinding": "guia"
-                },
-                {
-                  "type": "kendo-ui-mobile:editableListFormField",
-                  "name": "viaticos",
-                  "dataBindingRelationChildren": "[]",
-                  "dataBindingMultipleSelectChildren": "[]",
-                  "title": "Monto de viáticos",
-                  "inputType": "text",
-                  "titlePosition": "hidden",
-                  "inputTextType": "text",
-                  "placeholder": "Ingrese el monto de viáticos",
-                  "dataBinding": "viaticos"
+                  "dataBinding": "vale"
                 },
                 {
                   "type": "kendo-ui-mobile:editableListFormField",
@@ -325,13 +314,26 @@
                 },
                 {
                   "type": "kendo-ui-mobile:editableListFormField",
-                  "name": "vale",
+                  "name": "viaticos",
                   "dataBindingRelationChildren": "[]",
                   "dataBindingMultipleSelectChildren": "[]",
-                  "title": "Vale de combustible",
-                  "inputType": "barcodeScanner",
+                  "title": "Monto de viáticos",
+                  "inputType": "text",
+                  "titlePosition": "hidden",
+                  "inputTextType": "text",
+                  "placeholder": "Ingrese el monto de viáticos",
+                  "dataBinding": "viaticos"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "guia",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "Número de guía",
+                  "inputType": "fileUpload",
                   "titlePosition": "top",
-                  "dataBinding": "vale"
+                  "fileUploadPlaceholder": "Foto de guía",
+                  "dataBinding": "guia"
                 }
               ],
               "name": "editableListForm15",

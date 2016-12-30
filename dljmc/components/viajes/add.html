@@ -24,28 +24,15 @@
                 </li>
                 <li class="form-content-item">
 
+                    <div id="valeField" class="field field--qr-code editableListItem km-label-above">
 
-                    <div id="guiaField" class="field field--file-upload editableListItem fileUploadListItem km-label-above">
-
-                        <div class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm13.guia.title"></div>
+                        <div class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm13.vale.title"></div>
 
                         <div class="field__content">
-                            <span id="guiaName" class="file-upload-name field__content-info"></span>
-                            <a href="javascript:void(0)" class="link" data-bind="text: strings.viajes.viajesModel.editableListForm13.guia.fileUploadPlaceholder"></a>
-                            <input id="guia" type="file">
+                            <span data-bind="text: addFormData.vale" class="field__content-info"></span>
+                            <a class="link" data-bind="text: strings._app.qrCodeScan, events: { click: onBarcodeScan }" data-scanner-name="vale"></a>
                         </div>
                     </div>
-                </li>
-                <li class="form-content-item">
-
-
-                    <label id="viaticosField" class="field km-listview-label field--text km-label-above">
-                        <span class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm13.viaticos.title"></span>
-
-
-                        <input id="viaticos" data-bind="value: addFormData.viaticos" type="text">
-
-                    </label>
                 </li>
                 <li class="form-content-item">
 
@@ -71,13 +58,26 @@
                 </li>
                 <li class="form-content-item">
 
-                    <div id="valeField" class="field field--qr-code editableListItem km-label-above">
 
-                        <div class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm13.vale.title"></div>
+                    <label id="viaticosField" class="field km-listview-label field--text km-label-above">
+                        <span class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm13.viaticos.title"></span>
+
+
+                        <input id="viaticos" data-bind="value: addFormData.viaticos" type="text">
+
+                    </label>
+                </li>
+                <li class="form-content-item">
+
+
+                    <div id="guiaField" class="field field--file-upload editableListItem fileUploadListItem km-label-above">
+
+                        <div class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm13.guia.title"></div>
 
                         <div class="field__content">
-                            <span data-bind="text: addFormData.vale" class="field__content-info"></span>
-                            <a class="link" data-bind="text: strings._app.qrCodeScan, events: { click: onBarcodeScan }" data-scanner-name="vale"></a>
+                            <span id="guiaName" class="file-upload-name field__content-info"></span>
+                            <a href="javascript:void(0)" class="link" data-bind="text: strings.viajes.viajesModel.editableListForm13.guia.fileUploadPlaceholder"></a>
+                            <input id="guia" type="file">
                         </div>
                     </div>
                 </li>

@@ -262,9 +262,9 @@ app.localization.registerView('viajes');
 
                 /// start detail form initialization
 
-                itemModel.guiaImage = processImage(itemModel.guia);
-
                 itemModel.valeImage = processImage(itemModel.vale);
+
+                itemModel.guiaImage = processImage(itemModel.guia);
 
                 /// end detail form initialization
 
@@ -306,15 +306,15 @@ app.localization.registerView('viajes');
 
         onShow: function(e) {
             this.set('addFormData', {
+                viaticos: '',
                 kmfin: '',
                 kminicio: '',
-                viaticos: '',
                 numero: '',
                 /// start add form data init
 
-                guia: '',
-
                 vale: '',
+
+                guia: '',
                 /// end add form data init
 
             });
@@ -339,16 +339,16 @@ app.localization.registerView('viajes');
 
             function saveModel(data) {
                 /// start add form data save
+                addModel.viaticos = addFormData.viaticos;
                 addModel.kmfin = addFormData.kmfin;
                 addModel.kminicio = addFormData.kminicio;
-                addModel.viaticos = addFormData.viaticos;
                 addModel.numero = addFormData.numero;
+
+                addModel.vale = addFormData.vale;
 
                 if (data.guiaIndex) {
                     addModel.guia = data.guiaIndex.Id;
                 }
-
-                addModel.vale = addFormData.vale;
 
                 /// end add form data save
 
@@ -442,9 +442,9 @@ app.localization.registerView('viajes');
 
             this.set('itemData', itemData);
             this.set('editFormData', {
+                viaticos: itemData.viaticos,
                 kmfin: itemData.kmfin,
                 kminicio: itemData.kminicio,
-                viaticos: itemData.viaticos,
                 numero: itemData.numero,
                 /// start edit form data init
 
@@ -471,9 +471,9 @@ app.localization.registerView('viajes');
                 dataSource = viajesModel.get('dataSource');
 
             /// edit properties
+            itemData.set('viaticos', editFormData.viaticos);
             itemData.set('kmfin', editFormData.kmfin);
             itemData.set('kminicio', editFormData.kminicio);
-            itemData.set('viaticos', editFormData.viaticos);
             itemData.set('numero', editFormData.numero);
             /// start edit form data save
 
@@ -536,19 +536,19 @@ app.localization.registerView('viajes');
             /// end edit form save
 
             /// start edit form save handler
-            if (totalUploadFields === 0) {
-                editModel();
-            }
+if (totalUploadFields === 0) {
+    editModel();
+}
 
-            function successEdit(fileName, data) {
-                uploaded[fileName] = data.result;
-                uploaded.length++;
+function successEdit(fileName, data) {
+    uploaded[fileName] = data.result;
+    uploaded.length++;
 
-                if (uploaded.length == totalUploadFields) {
-                    editModel(uploaded);
-                }
-            }
-            /// end edit form save handler
+    if (uploaded.length == totalUploadFields) {
+        editModel(uploaded);
+    }
+}
+/// end edit form save handler
         },
         onCancel: function() {
             /// start edit form cancel

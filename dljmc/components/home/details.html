@@ -11,7 +11,11 @@
     <div class="details-content screen__content screen__content--details">
         <div class="km-listview-wrapper">
             <ul class="km-listview km-list km-listinset details-fields">
-
+                <li>
+                    <h3 data-bind="text: currentItem.placa"></h3></li>
+                <li>
+                    <div data-bind="html: currentItem.descripcion"></div>
+                </li>
 
             </ul>
         </div>
