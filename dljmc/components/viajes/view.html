@@ -1,0 +1,33 @@
+<div data-role="view" data-title="View" data-layout="main" data-model="app.viajes" data-show="app.viajes.onShow" data-after-show="app.viajes.afterShow" id="viajesScreen" class="screen">
+    <header data-role="header">
+        <div data-role="navbar" class="header-text">
+
+            <span data-bind="text: strings.viajes.title"></span>
+
+            <a data-role="button" href="#appDrawer" data-rel="drawer" data-align="left" data-icon="drawer-button"></a>
+
+            <a data-role="button" data-align="right" data-bind="events: { click: viajesModel.addClick }">Add</a></div>
+    </header>
+
+
+    <!-- START_CUSTOM_CODE_viajes -->
+    <!-- Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes -->
+
+    <!-- END_CUSTOM_CODE_viajes -->
+    <ul class="masterDetailView" data-role="listview" data-auto-bind="false" data-style="inset" data-template="viajesModelTemplate" data-bind="source: viajesModel.dataSource, events: {click: viajesModel.itemClick}" data-pull-to-refresh="false" data-endless-scroll="false">
+    </ul>
+
+
+    <!-- START_CUSTOM_CODE_viajesModel -->
+    <!-- Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes -->
+
+    <!-- END_CUSTOM_CODE_viajesModel -->
+    <script type="text/x-kendo-template" id="viajesModelTemplate">
+        <div class="image-with-text">
+            # data = app.viajes.viajesModel.fixHierarchicalData(data); #
+
+            <h3>#: data['numero'] #</h3>
+            <p>#: data['numero'] #</p>
+        </div>
+    </script>
+</div>

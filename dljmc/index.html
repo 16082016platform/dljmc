@@ -14,34 +14,24 @@
     <script src="kendo/js/jquery.min.js"></script>
     <script src="kendo/js/kendo.mobile.min.js"></script>
     <script src="app.js"></script>
+    <script src="bower_components/everlive/min/everlive.all.min.js"></script>
+    <script src="dataProviders/backendServices.js"></script>
+    <link href="bower_components/leaflet/dist/leaflet.css" rel="stylesheet">
+    <script src="bower_components/leaflet/dist/leaflet.js"></script>
 </head>
 
 <body id="kendoUiMobileApp">
+    <script src="components/localizaciones/index.js"></script>
+    <script src="components/viajes/index.js"></script>
     <script src="components/home/index.js"></script>
+    <script src="components/login/index.js"></script>
     <div data-role="layout" data-id="main">
         <header data-role="header">
             <div data-role="navbar">
                 <span data-role="view-title"></span>
+                <a data-role="button" href="#appDrawer" data-rel="drawer" data-align="left" data-icon="drawer-button"></a>
             </div>
         </header>
-        <footer data-role="footer">
-            <div data-role="tabstrip" id="navigation-container">
-                <a href="components/home/view.html" data-icon="home"><span class="navigation-link-text" data-bind="text: strings.home.title"></span></a>
-            </div>
-            <div id="navigation-container-more" style="display: none">
-            </div>
-        </footer>
-    </div>
-
-
-    <div id="navigation-show-more-view" data-role="view" data-title="Show More" data-layout="main">
-        <header data-role="header">
-            <div data-role="navbar">
-                <span data-bind="text: strings._app.showMoreTitle"></span>
-            </div>
-        </header>
-        <ul data-role="listview" data-style="inset" data-click="app.listViewClick">
-        </ul>
     </div>
 
     <div data-role="layout" data-id="main-nonav">
@@ -50,8 +40,24 @@
                 <span data-role="view-title"></span>
             </div>
         </header>
-        <footer data-role="footer">
-        </footer>
+    </div>
+
+    <div id="appDrawer" data-role="drawer" data-title="Navigation">
+        <header data-role="header">
+            <div data-role="navbar">
+                <span data-role="view-title"></span>
+            </div>
+        </header>
+        <ul id="navigation-container" data-role="listview">
+            <li><a href="components/login/view.html" data-icon="home"><span class="navigation-link-text" data-bind="text: strings.login.title"></span></a></li>
+
+            <li><a href="components/home/view.html" data-icon="favorites"><span class="navigation-link-text" data-bind="text: strings.home.title"></span></a></li>
+
+            <li><a href="components/viajes/view.html" data-icon="organize"><span class="navigation-link-text" data-bind="text: strings.viajes.title"></span></a></li>
+
+            <li><a href="components/localizaciones/view.html" data-icon="globe"><span class="navigation-link-text" data-bind="text: strings.localizaciones.title"></span></a></li>
+            <li id="loginModellogout"><a href="components/login/view.html?logout=true" data-position="end" data-icon="action"><span class="navigation-link-text" data-bind="text: strings.login.loginModel.logoutLabel"></span></a></li>
+        </ul>
     </div>
     <div id="notify" class="notify-pop-up">
         <span class="notify-pop-up__content"></span>
@@ -63,6 +69,20 @@
     <!-- Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes -->
 
     <!-- END_CUSTOM_CODE_kendoUiMobileApp -->
+    <div id="locationEditor" class="locationEditor km-widget km-view" style="display: none;">
+        <header class="km-header">
+            <div class="km-navbar">
+                <div class="km-leftitem">
+                    <a class="km-widget km-button km-back" href="javascript:void(0)" onclick="app.locationEditOnSave()">
+                        <span class="km-text">Back</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+        <div class="km-content km-stretched-view">
+            <div id="locationEditMap"></div>
+        </div>
+    </div>
 </body>
 
 </html>

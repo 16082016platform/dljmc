@@ -4,7 +4,77 @@
     "showMoreTitle": "Show More",
     "qrCodeScan": "Scan"
   },
+  "login": {
+    "title": "Iniciar Sesión",
+    "loginModel": {
+      "logoutLabel": "Salir",
+      "emailLabel": "Email",
+      "passwordLabel": "Password",
+      "signinLabel": "Sign In"
+    }
+  },
   "home": {
-    "title": "Home View"
+    "title": "Unidades",
+    "homeModel": {
+      "addScreenHeaderValue": "Crear",
+      "editScreenHeaderValue": "Editar",
+      "editableListForm4": {
+        "placa": {
+          "title": "Placa",
+          "placeholder": "Ingrese placa de la unidad"
+        },
+        "descripcion": {
+          "title": "Descripción"
+        }
+      },
+      "editableListForm5": {}
+    }
+  },
+  "viajes": {
+    "title": "Viajes",
+    "viajesModel": {
+      "detailHeaderFieldValue": "Detalle",
+      "addScreenHeaderValue": "Ingresar viaje",
+      "editScreenHeaderValue": "Editar",
+      "editableListForm13": {
+        "guia": {
+          "title": "Número de guía",
+          "fileUploadPlaceholder": "Foto de guía"
+        },
+        "kminicio": {
+          "title": "KM inicio",
+          "placeholder": "Ingrese KM de inicio"
+        },
+        "kmfin": {
+          "title": "KM de fin",
+          "placeholder": "Ingrese KM de fin"
+        },
+        "viaticos": {
+          "title": "Monto de viáticos",
+          "placeholder": "Ingrese el monto de viáticos"
+        },
+        "vale": {
+          "title": "Vale de combustible"
+        }
+      },
+      "editableListForm14": {
+        "numero": {
+          "title": "Text field",
+          "placeholder": "Ingrese número de viaje"
+        }
+      },
+      "editableListForm15": {}
+    }
+  },
+  "localizaciones": {
+    "title": "Localización",
+    "localizacionesModel": {
+      "detailHeaderFieldValue": "Detalle",
+      "editableListForm26": {
+        "location": {
+          "title": "Distancia hasta la unidad"
+        }
+      }
+    }
   }
 }

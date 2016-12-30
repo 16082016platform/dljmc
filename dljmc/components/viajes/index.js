@@ -1,27 +1,68 @@
 'use strict';
 
-app.home = kendo.observable({
+app.viajes = kendo.observable({
     onShow: function() {},
     afterShow: function() {}
 });
-app.localization.registerView('home');
+app.localization.registerView('viajes');
 
-// START_CUSTOM_CODE_home
+// START_CUSTOM_CODE_viajes
 // Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes
 
-// END_CUSTOM_CODE_home
+// END_CUSTOM_CODE_viajes
 (function(parent) {
     var dataProvider = app.data.backendServices,
         /// start global model properties
+
+        processImage = function(img) {
+
+            function isAbsolute(img) {
+                if  (img && (img.slice(0,  5)  ===  'http:' || img.slice(0,  6)  ===  'https:' || img.slice(0,  2)  ===  '//'  ||  img.slice(0,  5)  ===  'data:')) {
+                    return true;
+                }
+                return false;
+            }
+
+            if (!img) {
+                var empty1x1png = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQI12NgYAAAAAMAASDVlMcAAAAASUVORK5CYII=';
+                img = 'data:image/png;base64,' + empty1x1png;
+            } else if (!isAbsolute(img)) {
+                var setup = dataProvider.setup || {};
+                img = setup.scheme + ':' + setup.url + setup.appId + '/Files/' + img + '/Download';
+            }
+
+            return img;
+        },
+
+        _scanBarcode = function(callback) {
+            if (window.navigator.simulator === true) {
+                callback(new Error('Not supported in simulator'));
+            } else {
+                cordova.plugins.barcodeScanner.scan(
+                    function(result) {
+                        callback(null, result.text);
+                    },
+                    function(error) {
+                        callback(new Error(error));
+                    }, {
+                        "preferFrontCamera": false, // iOS and Android
+                        "showFlipCameraButton": true, // iOS and Android
+                        "prompt": "Place a barcode inside the scan area", // supported on Android only
+                    }
+                );
+            }
+
+        },
         /// end global model properties
+
         fetchFilteredData = function(paramFilter, searchFilter) {
-            var model = parent.get('homeModel'),
+            var model = parent.get('viajesModel'),
                 dataSource;
 
             if (model) {
                 dataSource = model.get('dataSource');
             } else {
-                parent.set('homeModel_delayedFetch', paramFilter || null);
+                parent.set('viajesModel_delayedFetch', paramFilter || null);
                 return;
             }
 
@@ -64,7 +105,7 @@ app.localization.registerView('home');
         dataSourceOptions = {
             type: 'everlive',
             transport: {
-                typeName: 'unidades',
+                typeName: 'viajes',
                 dataProvider: dataProvider
             },
             change: function(e) {
@@ -93,8 +134,8 @@ app.localization.registerView('home');
             schema: {
                 model: {
                     fields: {
-                        'descripcion': {
-                            field: 'descripcion',
+                        'numero': {
+                            field: 'numero',
                             defaultValue: ''
                         },
                     }
@@ -104,7 +145,7 @@ app.localization.registerView('home');
         },
         /// start data sources
         /// end data sources
-        homeModel = kendo.observable({
+        viajesModel = kendo.observable({
             _dataSourceOptions: dataSourceOptions,
             fixHierarchicalData: function(data) {
                 var result = {},
@@ -158,20 +199,20 @@ app.localization.registerView('home');
                 return result;
             },
             itemClick: function(e) {
-                var dataItem = e.dataItem || homeModel.originalItem;
+                var dataItem = e.dataItem || viajesModel.originalItem;
 
-                app.mobileApp.navigate('#components/home/details.html?uid=' + dataItem.uid);
+                app.mobileApp.navigate('#components/viajes/details.html?uid=' + dataItem.uid);
 
             },
             addClick: function() {
-                app.mobileApp.navigate('#components/home/add.html');
+                app.mobileApp.navigate('#components/viajes/add.html');
             },
             editClick: function() {
                 var uid = this.originalItem.uid;
-                app.mobileApp.navigate('#components/home/edit.html?uid=' + uid);
+                app.mobileApp.navigate('#components/viajes/edit.html?uid=' + uid);
             },
             deleteItem: function() {
-                var dataSource = homeModel.get('dataSource');
+                var dataSource = viajesModel.get('dataSource');
 
                 dataSource.remove(this.originalItem);
 
@@ -202,29 +243,34 @@ app.localization.registerView('home');
             },
             detailsShow: function(e) {
                 var uid = e.view.params.uid,
-                    dataSource = homeModel.get('dataSource'),
+                    dataSource = viajesModel.get('dataSource'),
                     itemModel = dataSource.getByUid(uid);
 
-                homeModel.setCurrentItemByUid(uid);
+                viajesModel.setCurrentItemByUid(uid);
 
                 /// start detail form show
                 /// end detail form show
             },
             setCurrentItemByUid: function(uid) {
                 var item = uid,
-                    dataSource = homeModel.get('dataSource'),
+                    dataSource = viajesModel.get('dataSource'),
                     itemModel = dataSource.getByUid(item);
 
-                if (!itemModel.descripcion) {
-                    itemModel.descripcion = String.fromCharCode(160);
+                if (!itemModel.numero) {
+                    itemModel.numero = String.fromCharCode(160);
                 }
 
                 /// start detail form initialization
+
+                itemModel.guiaImage = processImage(itemModel.guia);
+
+                itemModel.valeImage = processImage(itemModel.vale);
+
                 /// end detail form initialization
 
-                homeModel.set('originalItem', itemModel);
-                homeModel.set('currentItem',
-                    homeModel.fixHierarchicalData(itemModel));
+                viajesModel.set('originalItem', itemModel);
+                viajesModel.set('currentItem',
+                    viajesModel.fixHierarchicalData(itemModel));
 
                 return itemModel;
             },
@@ -244,31 +290,66 @@ app.localization.registerView('home');
         /// start add model properties
         /// end add model properties
         /// start add model functions
+
+        onBarcodeScan: function(field) {
+            var addFormSetTarget = $(field.target).data().scannerName,
+                addFormData = this.get('addFormData');
+            _scanBarcode(function(err, result) {
+                if (err) {
+                    alert(err);
+                } else {
+                    addFormData.set(addFormSetTarget, result);
+                }
+            });
+        },
         /// end add model functions
+
         onShow: function(e) {
             this.set('addFormData', {
-                descripcion: '',
-                placa: '',
+                kmfin: '',
+                kminicio: '',
+                viaticos: '',
+                numero: '',
                 /// start add form data init
+
+                guia: '',
+
+                vale: '',
                 /// end add form data init
+
             });
             /// start add form show
+
+            app.showFileUploadName('add-item-view');
             /// end add form show
+
         },
         onCancel: function() {
             /// start add model cancel
+
+            app.clearFormDomData('add-item-view');
             /// end add model cancel
+
         },
         onSaveClick: function(e) {
             var addFormData = this.get('addFormData'),
-                filter = homeModel && homeModel.get('paramFilter'),
-                dataSource = homeModel.get('dataSource'),
+                filter = viajesModel && viajesModel.get('paramFilter'),
+                dataSource = viajesModel.get('dataSource'),
                 addModel = {};
 
             function saveModel(data) {
                 /// start add form data save
-                addModel.descripcion = addFormData.descripcion;
-                addModel.placa = addFormData.placa;
+                addModel.kmfin = addFormData.kmfin;
+                addModel.kminicio = addFormData.kminicio;
+                addModel.viaticos = addFormData.viaticos;
+                addModel.numero = addFormData.numero;
+
+                if (data.guiaIndex) {
+                    addModel.guia = data.guiaIndex.Id;
+                }
+
+                addModel.vale = addFormData.vale;
+
                 /// end add form data save
 
                 dataSource.add(addModel);
@@ -281,9 +362,51 @@ app.localization.registerView('home');
             };
 
             /// start add form save
+
+            var uploaded = [],
+                totalUploadFields = 0;
+
+            var guiaReader = new FileReader(),
+                guiaField = $("#guia")[0].files[0];
+
+            guiaReader.onload = function() {
+                var file = {
+                    "Filename": guiaField.name,
+                    "ContentType": guiaField.type,
+                    "base64": guiaReader.result.split(',')[1]
+                };
+
+                dataProvider.files.create(file,
+                    success.bind(this, "guiaIndex"),
+                    function(error) {
+                        alert(JSON.stringify(error));
+                    });
+            };
+
+            if (!guiaField) {
+                success("guia", {});
+            } else {
+                guiaReader.readAsDataURL(guiaField);
+                totalUploadFields++;
+            }
             /// end add form save
+
             /// start add form save handler
-            saveModel();
+            function success(fileName, data) {
+                /// start upload fields
+                /// end upload fields
+
+                uploaded[fileName] = data.result;
+                if (data.result) {
+                    uploaded.length++;
+                } else {
+                    alert("Error, when uploading!");
+                }
+
+                if (uploaded.length == totalUploadFields) {
+                    saveModel(uploaded);
+                }
+            }
             /// end add form save handler
         }
     }));
@@ -292,28 +415,50 @@ app.localization.registerView('home');
         /// start edit model properties
         /// end edit model properties
         /// start edit model functions
+
+        onBarcodeScan: function(field) {
+            var editFormSetTarget = $(field.target).data().scannerName,
+                editFormData = this.get('editFormData');
+            _scanBarcode(function(err, result) {
+                if (err) {
+                    alert(err);
+                } else {
+                    editFormData.set(editFormSetTarget, result);
+                }
+            });
+        },
         /// end edit model functions
+
         editFormData: {},
         onShow: function(e) {
             var that = this,
                 itemUid = e.view.params.uid,
-                dataSource = homeModel.get('dataSource'),
+                dataSource = viajesModel.get('dataSource'),
                 itemData = dataSource.getByUid(itemUid),
-                fixedData = homeModel.fixHierarchicalData(itemData);
+                fixedData = viajesModel.fixHierarchicalData(itemData);
 
             /// start edit form before itemData
             /// end edit form before itemData
 
             this.set('itemData', itemData);
             this.set('editFormData', {
-                descripcion: itemData.descripcion,
-                placa: itemData.placa,
+                kmfin: itemData.kmfin,
+                kminicio: itemData.kminicio,
+                viaticos: itemData.viaticos,
+                numero: itemData.numero,
                 /// start edit form data init
+
+                vale: itemData.vale,
+
                 /// end edit form data init
+
             });
 
             /// start edit form show
+
+            app.showFileUploadName('edit-item-view');
             /// end edit form show
+
         },
         linkBind: function(linkString) {
             var linkChunks = linkString.split(':');
@@ -323,17 +468,28 @@ app.localization.registerView('home');
             var that = this,
                 editFormData = this.get('editFormData'),
                 itemData = this.get('itemData'),
-                dataSource = homeModel.get('dataSource');
+                dataSource = viajesModel.get('dataSource');
 
             /// edit properties
-            itemData.set('descripcion', editFormData.descripcion);
-            itemData.set('placa', editFormData.placa);
+            itemData.set('kmfin', editFormData.kmfin);
+            itemData.set('kminicio', editFormData.kminicio);
+            itemData.set('viaticos', editFormData.viaticos);
+            itemData.set('numero', editFormData.numero);
             /// start edit form data save
+
+            itemData.set('vale', editFormData.vale);
+
             /// end edit form data save
 
             function editModel(data) {
                 /// start edit form data prepare
+
+                if (data && data.guiaIndex) {
+                    itemData.set('guia', data.guiaIndex.Id);
+                }
+
                 /// end edit form data prepare
+
                 dataSource.one('sync', function(e) {
                     /// start edit form data save success
                     /// end edit form data save success
@@ -349,9 +505,49 @@ app.localization.registerView('home');
                 app.clearFormDomData('edit-item-view');
             };
             /// start edit form save
+
+            var totalUploadFields = 0,
+                uploaded = [];
+
+            var guiaReader = new FileReader(),
+                guiaField = $("#guia")[0].files[0];
+            if (guiaField) {
+                totalUploadFields++;
+                guiaReader.onload = function() {
+                    var file = {
+                        "Filename": guiaField.name,
+                        "ContentType": guiaField.type,
+                        "base64": guiaReader.result.split(',')[1]
+                    };
+
+                    dataProvider.files.create(file,
+                        successEdit.bind(this, "guiaIndex"),
+                        function(error) {
+                            alert(JSON.stringify(error));
+                        });
+                };
+            }
+
+            if (!guiaField) {
+                successEdit("guia", {});
+            } else {
+                guiaReader.readAsDataURL(guiaField);
+            }
             /// end edit form save
+
             /// start edit form save handler
-            editModel();
+            if (totalUploadFields === 0) {
+                editModel();
+            }
+
+            function successEdit(fileName, data) {
+                uploaded[fileName] = data.result;
+                uploaded.length++;
+
+                if (uploaded.length == totalUploadFields) {
+                    editModel(uploaded);
+                }
+            }
             /// end edit form save handler
         },
         onCancel: function() {
@@ -362,22 +558,22 @@ app.localization.registerView('home');
 
     if (typeof dataProvider.sbProviderReady === 'function') {
         dataProvider.sbProviderReady(function dl_sbProviderReady() {
-            parent.set('homeModel', homeModel);
-            var param = parent.get('homeModel_delayedFetch');
+            parent.set('viajesModel', viajesModel);
+            var param = parent.get('viajesModel_delayedFetch');
             if (typeof param !== 'undefined') {
-                parent.set('homeModel_delayedFetch', undefined);
+                parent.set('viajesModel_delayedFetch', undefined);
                 fetchFilteredData(param);
             }
         });
     } else {
-        parent.set('homeModel', homeModel);
+        parent.set('viajesModel', viajesModel);
     }
 
     parent.set('onShow', function(e) {
         var param = e.view.params.filter ? JSON.parse(e.view.params.filter) : null,
             isListmenu = false,
             backbutton = e.view.element && e.view.element.find('header [data-role="navbar"] .backButtonWrapper'),
-            dataSourceOptions = homeModel.get('_dataSourceOptions'),
+            dataSourceOptions = viajesModel.get('_dataSourceOptions'),
             dataSource;
 
         if (param || isListmenu) {
@@ -392,13 +588,13 @@ app.localization.registerView('home');
         }
 
         dataSource = new kendo.data.DataSource(dataSourceOptions);
-        homeModel.set('dataSource', dataSource);
+        viajesModel.set('dataSource', dataSource);
         fetchFilteredData(param);
     });
 
-})(app.home);
+})(app.viajes);
 
-// START_CUSTOM_CODE_homeModel
+// START_CUSTOM_CODE_viajesModel
 // Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes
 
-// END_CUSTOM_CODE_homeModel
+// END_CUSTOM_CODE_viajesModel

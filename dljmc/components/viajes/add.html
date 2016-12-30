@@ -1,0 +1,90 @@
+<div data-role="view" data-title="Add" data-model="app.viajes.addItemViewModel" data-bind="events: { show: onShow }" id="viajesModelAddScreen" class="screen screen--add add-item-view">
+    <header data-role="header">
+        <div data-role="navbar" class="header-text">
+            <span data-bind="text: strings.viajes.viajesModel.addScreenHeaderValue"></span>
+            <a data-role="backbutton" data-align="left" data-bind="events: { click: onCancel }">Cancel</a>
+            <a data-role="button" data-align="right" data-bind="events: { click: onSaveClick }">Save</a>
+        </div>
+    </header>
+    <!-- START_CUSTOM_CODE_viajesModel -->
+    <!-- END_CUSTOM_CODE_viajesModel -->
+    <div id="editableListForm14" class="form-view screen__content screen__content--form">
+        <form>
+            <ul class="form-content" data-role="listview" data-style="inset">
+                <li class="form-content-item">
+
+
+                    <label id="numeroField" class="field km-listview-label field--text km-label-above">
+                        <span class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm14.numero.title"></span>
+
+
+                        <input id="numero" data-bind="value: addFormData.numero" type="text">
+
+                    </label>
+                </li>
+                <li class="form-content-item">
+
+
+                    <div id="guiaField" class="field field--file-upload editableListItem fileUploadListItem km-label-above">
+
+                        <div class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm13.guia.title"></div>
+
+                        <div class="field__content">
+                            <span id="guiaName" class="file-upload-name field__content-info"></span>
+                            <a href="javascript:void(0)" class="link" data-bind="text: strings.viajes.viajesModel.editableListForm13.guia.fileUploadPlaceholder"></a>
+                            <input id="guia" type="file">
+                        </div>
+                    </div>
+                </li>
+                <li class="form-content-item">
+
+
+                    <label id="viaticosField" class="field km-listview-label field--text km-label-above">
+                        <span class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm13.viaticos.title"></span>
+
+
+                        <input id="viaticos" data-bind="value: addFormData.viaticos" type="text">
+
+                    </label>
+                </li>
+                <li class="form-content-item">
+
+
+                    <label id="kminicioField" class="field km-listview-label field--number km-label-above">
+                        <span class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm13.kminicio.title"></span>
+
+
+                        <input id="kminicio" data-bind="value: addFormData.kminicio" type="number">
+
+                    </label>
+                </li>
+                <li class="form-content-item">
+
+
+                    <label id="kmfinField" class="field km-listview-label field--number km-label-above">
+                        <span class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm13.kmfin.title"></span>
+
+
+                        <input id="kmfin" data-bind="value: addFormData.kmfin" type="number">
+
+                    </label>
+                </li>
+                <li class="form-content-item">
+
+                    <div id="valeField" class="field field--qr-code editableListItem km-label-above">
+
+                        <div class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm13.vale.title"></div>
+
+                        <div class="field__content">
+                            <span data-bind="text: addFormData.vale" class="field__content-info"></span>
+                            <a class="link" data-bind="text: strings._app.qrCodeScan, events: { click: onBarcodeScan }" data-scanner-name="vale"></a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </form>
+        <!-- START_CUSTOM_CODE_editableListForm14 -->
+        <!-- Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes -->
+        <!-- END_CUSTOM_CODE_editableListForm14 -->
+    </div>
+</div>

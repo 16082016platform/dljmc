@@ -3,19 +3,435 @@
   "views": [
     {
       "type": "kendo-ui-mobile:view",
-      "name": "home",
-      "components": [],
-      "title": "Home View",
+      "name": "login",
+      "components": [
+        {
+          "type": "kendo-ui-mobile:authentication",
+          "name": "loginModel",
+          "dataProvider": "backendServices",
+          "enableRegistration": false,
+          "enableLogout": true,
+          "logoutLabel": "Salir",
+          "enableRememberme": false,
+          "emailLabel": "Email",
+          "passwordLabel": "Password",
+          "signinLabel": "Sign In",
+          "signinRedirect": "viajes"
+        }
+      ],
+      "title": "Iniciar Sesión",
       "addToNavigation": true,
       "icon": "home"
+    },
+    {
+      "type": "kendo-ui-mobile:view",
+      "name": "home",
+      "components": [
+        {
+          "type": "kendo-ui-mobile:editableList",
+          "listExtraFields": [],
+          "detailExtraFields": [],
+          "addScreenExtraFields": [],
+          "editScreenExtraFields": [],
+          "components": [
+            {
+              "type": "kendo-ui-mobile:editableListForm",
+              "components": [
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "placa",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "Placa",
+                  "inputType": "text",
+                  "titlePosition": "top",
+                  "inputTextType": "text",
+                  "placeholder": "Ingrese placa de la unidad",
+                  "dataBinding": "placa"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "descripcion",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "Descrición",
+                  "inputType": "textArea",
+                  "wideFieldTitlePosition": "top",
+                  "dataBinding": "descripcion"
+                }
+              ],
+              "name": "editableListForm4",
+              "formType": "add"
+            },
+            {
+              "type": "kendo-ui-mobile:editableListForm",
+              "components": [
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "placa",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "Placa",
+                  "inputType": "text",
+                  "titlePosition": "top",
+                  "inputTextType": "text",
+                  "placeholder": "Ingrese placa de la unidad",
+                  "dataBinding": "placa"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "descripcion",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "Descripción",
+                  "inputType": "textArea",
+                  "wideFieldTitlePosition": "top",
+                  "dataBinding": "descripcion"
+                }
+              ],
+              "name": "editableListForm5",
+              "formType": "edit"
+            }
+          ],
+          "name": "homeModel",
+          "dataProvider": "backendServices",
+          "collection": "unidades",
+          "headerField": "descripcion",
+          "addItemForm": true,
+          "addScreenHeaderValue": "Crear",
+          "editItemForm": true,
+          "editScreenHeaderSource": "static",
+          "editScreenHeaderValue": "Editar",
+          "deleteItemButton": true,
+          "deleteItemConfirmation": true,
+          "pullToRefresh": false,
+          "endlessScroll": false,
+          "isMapView": false,
+          "serverSideSorting": false,
+          "serverSidePaging": false,
+          "detailHeaderFieldSource": "dataBound",
+          "detailHeaderField": "descripcion"
+        }
+      ],
+      "title": "Unidades",
+      "addToNavigation": true,
+      "icon": "favorites"
+    },
+    {
+      "type": "kendo-ui-mobile:view",
+      "name": "viajes",
+      "components": [
+        {
+          "type": "kendo-ui-mobile:editableList",
+          "listExtraFields": [],
+          "detailExtraFields": [],
+          "addScreenExtraFields": [],
+          "editScreenExtraFields": [],
+          "components": [
+            {
+              "type": "kendo-ui-mobile:editableListForm",
+              "components": [
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "guia",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "Número de Guía",
+                  "inputType": "image",
+                  "titlePosition": "top",
+                  "alignment": "center",
+                  "dataBindingImage": "guia"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "kminicio",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "Heading",
+                  "inputType": "heading",
+                  "headingSize": "h1",
+                  "dataBindingOptional": "kminicio"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "kmfin",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "Heading",
+                  "inputType": "heading",
+                  "headingSize": "h1",
+                  "dataBindingOptional": "kmfin"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "viaticos",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "Heading",
+                  "inputType": "heading",
+                  "headingSize": "h1",
+                  "dataBindingOptional": "viaticos"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "vale",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "Vale de combustible",
+                  "inputType": "image",
+                  "titlePosition": "top",
+                  "alignment": "center",
+                  "dataBindingImage": "vale"
+                }
+              ],
+              "name": "editableListForm13",
+              "formType": "detail"
+            },
+            {
+              "type": "kendo-ui-mobile:editableListForm",
+              "components": [
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "numero",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "Número",
+                  "inputType": "text",
+                  "titlePosition": "top",
+                  "inputTextType": "text",
+                  "placeholder": "Ingrese número de vaje",
+                  "dataBinding": "numero"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "guia",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "Número de guía",
+                  "inputType": "fileUpload",
+                  "titlePosition": "top",
+                  "fileUploadPlaceholder": "Foto de la guía",
+                  "dataBinding": "guia"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "viaticos",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "Viaticos",
+                  "inputType": "text",
+                  "titlePosition": "top",
+                  "inputTextType": "text",
+                  "placeholder": "Ingrese el monto de los viáticos",
+                  "dataBinding": "viaticos"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "kminicio",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "KM inicio",
+                  "inputType": "number",
+                  "titlePosition": "top",
+                  "placeholder": "Ingrese KM de inicio",
+                  "dataBinding": "kminicio"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "kmfin",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "KM fin",
+                  "inputType": "number",
+                  "titlePosition": "top",
+                  "placeholder": "Ingrese KM de fin",
+                  "dataBinding": "kmfin"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "vale",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "Vale de combustible",
+                  "inputType": "barcodeScanner",
+                  "titlePosition": "top",
+                  "dataBinding": "vale"
+                }
+              ],
+              "name": "editableListForm14",
+              "formType": "add"
+            },
+            {
+              "type": "kendo-ui-mobile:editableListForm",
+              "components": [
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "numero",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "Text field",
+                  "inputType": "text",
+                  "titlePosition": "left",
+                  "inputTextType": "text",
+                  "placeholder": "Ingrese número de viaje",
+                  "dataBinding": "numero"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "guia",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "Número de guía",
+                  "inputType": "fileUpload",
+                  "titlePosition": "top",
+                  "fileUploadPlaceholder": "Foto de guía",
+                  "dataBinding": "guia"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "viaticos",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "Monto de viáticos",
+                  "inputType": "text",
+                  "titlePosition": "hidden",
+                  "inputTextType": "text",
+                  "placeholder": "Ingrese el monto de viáticos",
+                  "dataBinding": "viaticos"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "kminicio",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "KM inicio",
+                  "inputType": "text",
+                  "titlePosition": "left",
+                  "inputTextType": "text",
+                  "placeholder": "Ingrese KM de inicio",
+                  "dataBinding": "kminicio"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "kmfin",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "KM de fin",
+                  "inputType": "text",
+                  "titlePosition": "hidden",
+                  "inputTextType": "text",
+                  "placeholder": "Ingrese KM de fin",
+                  "dataBinding": "kmfin"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "vale",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "Vale de combustible",
+                  "inputType": "barcodeScanner",
+                  "titlePosition": "top",
+                  "dataBinding": "vale"
+                }
+              ],
+              "name": "editableListForm15",
+              "formType": "edit"
+            }
+          ],
+          "name": "viajesModel",
+          "dataProvider": "backendServices",
+          "collection": "viajes",
+          "headerField": "numero",
+          "subHeaderField": "numero",
+          "addItemForm": true,
+          "addScreenHeaderValue": "Ingresar viaje",
+          "editItemForm": true,
+          "editScreenHeaderSource": "static",
+          "editScreenHeaderValue": "Editar",
+          "deleteItemButton": true,
+          "deleteItemConfirmation": true,
+          "pullToRefresh": false,
+          "endlessScroll": false,
+          "isMapView": false,
+          "serverSideSorting": false,
+          "serverSidePaging": false,
+          "detailHeaderFieldSource": "static",
+          "detailHeaderFieldValue": "Detalle",
+          "detailSubHeaderField": "numero",
+          "detailDescriptionField": "viaticos"
+        }
+      ],
+      "title": "Viajes",
+      "addToNavigation": true,
+      "icon": "organize"
+    },
+    {
+      "type": "kendo-ui-mobile:view",
+      "name": "localizaciones",
+      "components": [
+        {
+          "type": "kendo-ui-mobile:editableList",
+          "listExtraFields": [],
+          "detailExtraFields": [],
+          "addScreenExtraFields": [],
+          "editScreenExtraFields": [],
+          "components": [
+            {
+              "type": "kendo-ui-mobile:editableListForm",
+              "components": [
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "location",
+                  "dataBindingRelationChildren": "[]",
+                  "dataBindingMultipleSelectChildren": "[]",
+                  "title": "Distancia hasta la unidad",
+                  "inputType": "location",
+                  "titlePosition": "top",
+                  "dataBinding": "ubicacion",
+                  "locationDisplayType": "distance"
+                }
+              ],
+              "name": "editableListForm26",
+              "formType": "detail"
+            }
+          ],
+          "name": "localizacionesModel",
+          "dataProvider": "backendServices",
+          "collection": "localizaciones",
+          "headerField": "unidad",
+          "subHeaderField": "ubicacion",
+          "addItemForm": false,
+          "editItemForm": false,
+          "deleteItemButton": false,
+          "pullToRefresh": false,
+          "endlessScroll": false,
+          "isMapView": false,
+          "serverSideSorting": false,
+          "serverSidePaging": false,
+          "detailHeaderFieldSource": "static",
+          "detailHeaderFieldValue": "Detalle",
+          "detailSubHeaderField": "unidad",
+          "detailDescriptionField": "ubicacion"
+        }
+      ],
+      "title": "Localización",
+      "addToNavigation": true,
+      "icon": "globe"
     }
   ],
-  "dataProviders": [],
+  "dataProviders": [
+    {
+      "type": "kendo-ui-mobile:dataProvider",
+      "name": "backendServices",
+      "source": "everlive",
+      "everliveKey": "v1jd0ifat6f45k9a",
+      "offlineStorage": true,
+      "title": "Backend Services"
+    }
+  ],
   "name": "kendoUiMobileApp",
-  "navigation": "tabstrip",
-  "view": "home",
-  "transition": "slide",
-  "showMoreTab": true,
+  "navigation": "drawer",
+  "view": "login",
   "skin": "nova",
   "skinMainColor": "#32364c",
   "skinTextColor": "#ffffff",

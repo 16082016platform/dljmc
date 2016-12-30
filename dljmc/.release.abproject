@@ -1,5 +1,6 @@
 {
   "CorePlugins": [
+    "com.phonegap.plugins.barcodescanner@5.0.1",
     "cordova-plugin-battery-status",
     "cordova-plugin-camera",
     "cordova-plugin-contacts",

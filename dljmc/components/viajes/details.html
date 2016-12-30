@@ -1,0 +1,88 @@
+<div data-role="view" data-title="Details" data-model="app.viajes.viajesModel" data-bind="events: { show: detailsShow }" id="viajesModelScreen" class="screen screen--detail">
+    <header data-role="header">
+        <div data-role="navbar" class="header-text">
+            <a data-role="backbutton" data-align="left">Back</a>
+            <span data-bind="text: strings.viajes.viajesModel.detailHeaderFieldValue"></span>
+            <a data-role="button" data-align="right" data-bind="events: { click: editClick }">Edit</a>
+            <a data-role="button" class="nav-button" data-align="right" data-bind="events: { click: deleteClick }"><i class="km-icon km-delete"></i></a>
+        </div>
+    </header>
+
+    <div class="details-content screen__content screen__content--details">
+        <div class="km-listview-wrapper">
+            <ul class="km-listview km-list km-listinset details-fields">
+                <li>
+                    <h3 data-bind="text: currentItem.numero"></h3></li>
+                <li>
+                    <div data-bind="html: currentItem.viaticos"></div>
+                </li>
+
+                <li class="detail-content-item">
+
+                    <div id="guiaField" class="km-label-above imageListItem field field--image">
+
+                        <div class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm13.guia.title"></div>
+
+                        <div class="align-center field__content">
+
+                            <img data-bind="attr: { src: currentItem.guiaImage }">
+
+                        </div>
+                    </div>
+
+                </li>
+                <li class="detail-content-item">
+
+
+                    <div id="kminicioField" class="field field--heading">
+
+                        <h1 data-bind="html: currentItem.kminicio"></h1>
+
+                    </div>
+
+
+                </li>
+                <li class="detail-content-item">
+
+
+                    <div id="kmfinField" class="field field--heading">
+
+                        <h1 data-bind="html: currentItem.kmfin"></h1>
+
+                    </div>
+
+
+                </li>
+                <li class="detail-content-item">
+
+
+                    <div id="viaticosField" class="field field--heading">
+
+                        <h1 data-bind="html: currentItem.viaticos"></h1>
+
+                    </div>
+
+
+                </li>
+                <li class="detail-content-item">
+
+                    <div id="valeField" class="km-label-above imageListItem field field--image">
+
+                        <div class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm13.vale.title"></div>
+
+                        <div class="align-center field__content">
+
+                            <img data-bind="attr: { src: currentItem.valeImage }">
+
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- START_CUSTOM_CODE_viajesModel -->
+    <!-- Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes -->
+
+    <!-- END_CUSTOM_CODE_viajesModel -->
+</div>
