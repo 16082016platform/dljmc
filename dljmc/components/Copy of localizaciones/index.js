@@ -285,7 +285,7 @@ app.localization.registerView('localizaciones');
         fetchFilteredData(param);
 
         dataSource.fetch(function () {
-
+            
             //var index = dataSource.indexOf(dataItem);
             //console.log(index); // displays "0"
 
@@ -319,7 +319,7 @@ app.localization.registerView('localizaciones');
                         map.setZoom(15);
                         //bounds.extend(this.getPosition());
                         map.setCenter(this.getPosition());
-                        infoWindow.setContent(dataSource.at(i).id);
+                        infoWindow.setContent( dataSource.at(i).id );
                         infoWindow.open(map, marker);
                     }
                 })(marker, i));
@@ -342,25 +342,3 @@ app.localization.registerView('localizaciones');
 // Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes
 
 // END_CUSTOM_CODE_localizacionesModel
-
-
-function onSelect(e) {
-    //console.log(this.currentItem().text()); //previous selected
-    //console.log(e.item.text()); //newly selected
-    console.log(e.item.index()); //newly selected
-
-    switch (e.item.index()) {
-        case 1:
-            $("#list").css("display", "block");
-            $("#map").css("display", "none");
-            break;
-        default:
-            $("#list").css("display", "none");
-            $("#map").css("display", "block");
-            break;
-    }
-    return;
-    var tabstrip = e.item.data("kendoMobileTabStrip");
-    var currentItem = tabstrip.currentItem();
-    console.log(currentItem);
-}
