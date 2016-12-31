@@ -13,12 +13,10 @@
             <ul class="form-content" data-role="listview" data-style="inset">
                 <li class="form-content-item">
 
-
                     <label id="numeroField" class="field km-listview-label field--text km-label-above">
-                        <span class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm14.numero.title"></span>
+                        <span class="field__label flaticon-losing-result-of-slot-machine">Número de viaje</span>
 
-
-                        <input id="numero" data-bind="value: addFormData.numero" type="text">
+                        <input id="numero" data-bind="value: addFormData.numero" type="tel">
 
                     </label>
                 </li>
@@ -26,9 +24,9 @@
 
                     <div id="valeField" class="field field--qr-code editableListItem km-label-above">
 
-                        <div class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm13.vale.title"></div>
+                        <div class="field__label flaticon-qr-code-scan" data-bind="text: strings.viajes.viajesModel.editableListForm13.vale.title"></div>
 
-                        <div class="field__content">
+                        <div class="field__content" style="margin-left: 38px;">
                             <span data-bind="text: addFormData.vale" class="field__content-info"></span>
                             <a class="link" data-bind="text: strings._app.qrCodeScan, events: { click: onBarcodeScan }" data-scanner-name="vale"></a>
                         </div>
@@ -38,10 +36,10 @@
 
 
                     <label id="kminicioField" class="field km-listview-label field--number km-label-above">
-                        <span class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm13.kminicio.title"></span>
+                        <span class="field__label flaticon-location-on-road" data-bind="text: strings.viajes.viajesModel.editableListForm13.kminicio.title"></span>
 
 
-                        <input id="kminicio" data-bind="value: addFormData.kminicio" type="number">
+                        <input id="kminicio" data-bind="value: addFormData.kminicio" type="tel">
 
                     </label>
                 </li>
@@ -49,10 +47,10 @@
 
 
                     <label id="kmfinField" class="field km-listview-label field--number km-label-above">
-                        <span class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm13.kmfin.title"></span>
+                        <span class="field__label flaticon-location-on-road" data-bind="text: strings.viajes.viajesModel.editableListForm13.kmfin.title"></span>
 
 
-                        <input id="kmfin" data-bind="value: addFormData.kmfin" type="number">
+                        <input id="kmfin" data-bind="value: addFormData.kmfin" type="tel">
 
                     </label>
                 </li>
@@ -60,10 +58,10 @@
 
 
                     <label id="viaticosField" class="field km-listview-label field--text km-label-above">
-                        <span class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm13.viaticos.title"></span>
+                        <span class="field__label flaticon-money-paper-of-dollars" data-bind="text: strings.viajes.viajesModel.editableListForm13.viaticos.title"></span>
 
 
-                        <input id="viaticos" data-bind="value: addFormData.viaticos" type="text">
+                        <input id="viaticos" data-bind="value: addFormData.viaticos" type="tel">
 
                     </label>
                 </li>
@@ -72,9 +70,9 @@
 
                     <div id="guiaField" class="field field--file-upload editableListItem fileUploadListItem km-label-above">
 
-                        <div class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm13.guia.title"></div>
+                        <div class="field__label flaticon-camera-retro" data-bind="text: strings.viajes.viajesModel.editableListForm13.guia.title"></div>
 
-                        <div class="field__content">
+                        <div class="field__content" style="margin-left: 38px;">
                             <span id="guiaName" class="file-upload-name field__content-info"></span>
                             <a href="javascript:void(0)" class="link" data-bind="text: strings.viajes.viajesModel.editableListForm13.guia.fileUploadPlaceholder"></a>
                             <input id="guia" type="file">

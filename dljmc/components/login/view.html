@@ -1,47 +1,26 @@
-<div data-role="view" data-title="View" data-layout="main" data-model="app.login" data-show="app.login.onShow" data-after-show="app.login.afterShow" id="loginScreen" class="screen">
+<div data-role="view" data-title="View" data-layout="main" data-model="app.login" data-show="app.login.onShow" data-after-show="app.login.afterShow"
+    id="loginScreen" class="screen">
     <div class="signin-view screen__content screen__content--signin">
         <form>
-            <ul data-role="listview" data-style="inset">
-                <li>
-                    <label><span data-bind="text: strings.login.loginModel.emailLabel"></span>
-                        <input type="email" data-bind="value: loginModel.email" required autofocus>
-                    </label>
-                </li>
-                <li>
-                    <label><span data-bind="text: strings.login.loginModel.passwordLabel"></span>
-                        <input type="password" data-bind="value: loginModel.password" required>
-                    </label>
-                </li>
+            <ul data-role="listview">
+                <li> <input type="email" placeholder="Ingrese su usuario" data-bind="value: loginModel.email" required autofocus></li>
+                <li> <input type="password" placeholder="Contraseña" data-bind="value: loginModel.password" required></li>
             </ul>
-
             <div class="button-group button-group-vertical">
                 <a data-role="button" class="primary" data-bind="events: { click: loginModel.signin }, buttonText: strings.login.loginModel.signinLabel"></a>
-
-            </div>
-
-            <span class="status" data-bind="text: loginModel.errorMessage"></span>
-        </form>
+            </div> <span class="status" data-bind="text: loginModel.errorMessage"></span> </form>
     </div>
-    <div class="offline" align="center" style="display:none;">
-        You are currently offline. Before using this app in offline mode you must initialize it while you are online
-    </div>
+    <div class="offline" align="center" style="display:none;"> You are currently offline. Before using this app in offline mode you must initialize it while you are online </div>
     <!-- START_CUSTOM_CODE_loginModel -->
     <!-- Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes -->
-
     <!-- END_CUSTOM_CODE_loginModel -->
     <header data-role="header">
-        <div data-role="navbar" class="header-text">
-
-            <span data-bind="text: strings.login.title"></span>
-
-            <a data-role="button" href="#appDrawer" data-rel="drawer" data-align="left" data-icon="drawer-button"></a>
-
+        <div data-role="navbar" class="header-text"> <span data-bind="text: strings.login.title"></span>
+            <a data-role="button" href="#appDrawer" data-rel="drawer" data-align="left"
+                data-icon="drawer-button"></a>
         </div>
     </header>
-
-
     <!-- START_CUSTOM_CODE_login -->
     <!-- Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes -->
-
     <!-- END_CUSTOM_CODE_login -->
 </div>

@@ -14,11 +14,10 @@
                 <li class="form-content-item">
 
 
-                    <label id="numeroField" class="field km-listview-label field--text">
-                        <span class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm14.numero.title"></span>
+                    <label id="numeroField" class="field km-listview-label field--text km-label-above">
+                        <span class="field__label flaticon-losing-result-of-slot-machine">Número de viaje</span>
 
-
-                        <input id="numero" data-bind="value: editFormData.numero" type="text">
+                        <input id="numero" data-bind="value: editFormData.numero" type="tel">
 
                     </label>
                 </li>
@@ -26,9 +25,9 @@
 
                     <div id="valeField" class="field field--qr-code editableListItem km-label-above">
 
-                        <div class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm13.vale.title"></div>
+                        <div class="field__label flaticon-qr-code-scan">Vale de combustible</div>
 
-                        <div class="field__content">
+                        <div class="field__content" style="margin-left: 38px;">
                             <span data-bind="text: editFormData.vale" class="field__content-info"></span>
                             <a class="link" data-bind="text: strings._app.qrCodeScan, events: { click: onBarcodeScan }" data-scanner-name="vale"></a>
                         </div>
@@ -37,33 +36,32 @@
                 <li class="form-content-item">
 
 
-                    <label id="kminicioField" class="field km-listview-label field--text">
-                        <span class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm13.kminicio.title"></span>
+                    <label id="kminicioField" class="field km-listview-label field--text km-label-above">
+                        <span class="field__label flaticon-location-on-road">KM de inicio</span>
 
 
-                        <input id="kminicio" data-bind="value: editFormData.kminicio" type="text">
-
-                    </label>
-                </li>
-                <li class="form-content-item">
-
-
-                    <label id="kmfinField" class="field km-listview-label field--text km-label-above km-label-hidden">
-                        &nbsp;
-
-
-                        <input id="kmfin" data-bind="value: editFormData.kmfin" type="text">
+                        <input id="kminicio" data-bind="value: editFormData.kminicio" type="tel">
 
                     </label>
                 </li>
                 <li class="form-content-item">
 
 
-                    <label id="viaticosField" class="field km-listview-label field--text km-label-above km-label-hidden">
-                        &nbsp;
+                    <label id="kmfinField" class="field km-listview-label field--text km-label-above">
+                        <span class="field__label flaticon-location-on-road">KM de fin</span>
 
 
-                        <input id="viaticos" data-bind="value: editFormData.viaticos" type="text">
+                        <input id="kmfin" data-bind="value: editFormData.kmfin" type="tel">
+
+                    </label>
+                </li>
+                <li class="form-content-item">
+
+
+                    <label id="viaticosField" class="field km-listview-label field--text km-label-above">
+                        <span class="field__label flaticon-money-paper-of-dollars">Monto de viáticos</span>
+
+                        <input id="viaticos" data-bind="value: editFormData.viaticos" type="tel">
 
                     </label>
                 </li>
@@ -72,11 +70,11 @@
 
                     <div id="guiaField" class="field field--file-upload editableListItem fileUploadListItem km-label-above">
 
-                        <div class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm13.guia.title"></div>
+                        <div class="field__label  flaticon-camera-retro">Número de guía</div>
 
-                        <div class="field__content">
+                        <div class="field__content" style="margin-left: 38px;">
                             <span id="guiaName" class="file-upload-name field__content-info"></span>
-                            <a href="javascript:void(0)" class="link" data-bind="text: strings.viajes.viajesModel.editableListForm13.guia.fileUploadPlaceholder"></a>
+                            <a href="javascript:void(0)" class="link">Tomar foto de la guía</a>
                             <input id="guia" type="file">
                         </div>
                     </div>

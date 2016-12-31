@@ -708,11 +708,42 @@
     margin-top: 50%;
 }
 
+#loginScreen li {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
 #loginScreen input {
     color: #fff;
+    width: 100%;
+    text-align: center;
+    font-weight: 900;
 }
 
 #localizacionesScreen .km-content, #localizacionesScreen .km-scroll-container, #localizacionesScreen #map {
     display: -webkit-box;
     width: 100%;
+}
+
+#viajesModelAddScreen [class^="flaticon-"]:before, [class*=" flaticon-"]:before, #viajesModelAddScreen [class^="flaticon-"]:after, [class*=" flaticon-"]:after {
+    font-size: 20px;
+}
+
+#viajesModelAddScreen li label {
+    color: #000;
+}
+
+#viajesModelAddScreen li input{
+    margin-left: 30px;
+}
+
+#viajesModelEditScreen [class^="flaticon-"]:before, [class*=" flaticon-"]:before, #viajesModelEditScreen [class^="flaticon-"]:after, [class*=" flaticon-"]:after {
+    font-size: 20px;
+}
+
+#viajesModelEditScreen li label {
+    color: #000;
+}
+
+#viajesModelEditScreen li input{
+    margin-left: 30px;
 }

@@ -1,8 +1,8 @@
 'use strict';
 
 app.viajes = kendo.observable({
-    onShow: function() {},
-    afterShow: function() {}
+    onShow: function () { },
+    afterShow: function () { }
 });
 app.localization.registerView('viajes');
 
@@ -10,14 +10,14 @@ app.localization.registerView('viajes');
 // Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes
 
 // END_CUSTOM_CODE_viajes
-(function(parent) {
+(function (parent) {
     var dataProvider = app.data.backendServices,
         /// start global model properties
 
-        processImage = function(img) {
+        processImage = function (img) {
 
             function isAbsolute(img) {
-                if  (img && (img.slice(0,  5)  ===  'http:' || img.slice(0,  6)  ===  'https:' || img.slice(0,  2)  ===  '//'  ||  img.slice(0,  5)  ===  'data:')) {
+                if (img && (img.slice(0, 5) === 'http:' || img.slice(0, 6) === 'https:' || img.slice(0, 2) === '//' || img.slice(0, 5) === 'data:')) {
                     return true;
                 }
                 return false;
@@ -34,15 +34,15 @@ app.localization.registerView('viajes');
             return img;
         },
 
-        _scanBarcode = function(callback) {
+        _scanBarcode = function (callback) {
             if (window.navigator.simulator === true) {
                 callback(new Error('Not supported in simulator'));
             } else {
                 cordova.plugins.barcodeScanner.scan(
-                    function(result) {
+                    function (result) {
                         callback(null, result.text);
                     },
-                    function(error) {
+                    function (error) {
                         callback(new Error(error));
                     }, {
                         "preferFrontCamera": false, // iOS and Android
@@ -55,7 +55,7 @@ app.localization.registerView('viajes');
         },
         /// end global model properties
 
-        fetchFilteredData = function(paramFilter, searchFilter) {
+        fetchFilteredData = function (paramFilter, searchFilter) {
             var model = parent.get('viajesModel'),
                 dataSource;
 
@@ -84,9 +84,9 @@ app.localization.registerView('viajes');
             }
         },
 
-        flattenLocationProperties = function(dataItem) {
+        flattenLocationProperties = function (dataItem) {
             var propName, propValue,
-                isLocation = function(value) {
+                isLocation = function (value) {
                     return propValue && typeof propValue === 'object' &&
                         propValue.longitude && propValue.latitude;
                 };
@@ -106,9 +106,12 @@ app.localization.registerView('viajes');
             type: 'everlive',
             transport: {
                 typeName: 'viajes',
-                dataProvider: dataProvider
+                dataProvider: dataProvider,
+                read: {
+                    headers: { "X-Everlive-Expand": JSON.stringify({ "Owner": { "TargetTypeName": "Users", "ReturnAs": "UserExpanded", "SingleField": "DisplayName" } }) }
+                }
             },
-            change: function(e) {
+            change: function (e) {
                 var data = this.data();
                 for (var i = 0; i < data.length; i++) {
                     var dataItem = data[i];
@@ -119,7 +122,7 @@ app.localization.registerView('viajes');
 
                 }
             },
-            error: function(e) {
+            error: function (e) {
 
                 if (e.xhr) {
                     var errorText = "";
@@ -147,7 +150,7 @@ app.localization.registerView('viajes');
         /// end data sources
         viajesModel = kendo.observable({
             _dataSourceOptions: dataSourceOptions,
-            fixHierarchicalData: function(data) {
+            fixHierarchicalData: function (data) {
                 var result = {},
                     layout = {};
 
@@ -198,40 +201,40 @@ app.localization.registerView('viajes');
 
                 return result;
             },
-            itemClick: function(e) {
+            itemClick: function (e) {
                 var dataItem = e.dataItem || viajesModel.originalItem;
 
                 app.mobileApp.navigate('#components/viajes/details.html?uid=' + dataItem.uid);
 
             },
-            addClick: function() {
+            addClick: function () {
                 app.mobileApp.navigate('#components/viajes/add.html');
             },
-            editClick: function() {
+            editClick: function () {
                 var uid = this.originalItem.uid;
                 app.mobileApp.navigate('#components/viajes/edit.html?uid=' + uid);
             },
-            deleteItem: function() {
+            deleteItem: function () {
                 var dataSource = viajesModel.get('dataSource');
 
                 dataSource.remove(this.originalItem);
 
-                dataSource.one('sync', function() {
+                dataSource.one('sync', function () {
                     app.mobileApp.navigate('#:back');
                 });
 
-                dataSource.one('error', function() {
+                dataSource.one('error', function () {
                     dataSource.cancelChanges();
                 });
 
                 dataSource.sync();
             },
-            deleteClick: function() {
+            deleteClick: function () {
                 var that = this;
 
                 navigator.notification.confirm(
                     'Are you sure you want to delete this item?',
-                    function(index) {
+                    function (index) {
                         //'OK' is index 1
                         //'Cancel' - index 2
                         if (index === 1) {
@@ -241,7 +244,7 @@ app.localization.registerView('viajes');
                     '', ['OK', 'Cancel']
                 );
             },
-            detailsShow: function(e) {
+            detailsShow: function (e) {
                 var uid = e.view.params.uid,
                     dataSource = viajesModel.get('dataSource'),
                     itemModel = dataSource.getByUid(uid);
@@ -251,7 +254,7 @@ app.localization.registerView('viajes');
                 /// start detail form show
                 /// end detail form show
             },
-            setCurrentItemByUid: function(uid) {
+            setCurrentItemByUid: function (uid) {
                 var item = uid,
                     dataSource = viajesModel.get('dataSource'),
                     itemModel = dataSource.getByUid(item);
@@ -259,6 +262,11 @@ app.localization.registerView('viajes');
                 if (!itemModel.numero) {
                     itemModel.numero = String.fromCharCode(160);
                 }
+
+
+                itemModel.CreatedAt = kendo.toString(itemModel.CreatedAt, "d/M/yyyy h:mm tt");
+
+                console.log(itemModel.CreatedAt);
 
                 /// start detail form initialization
 
@@ -272,7 +280,7 @@ app.localization.registerView('viajes');
 
                 return itemModel;
             },
-            linkBind: function(linkString) {
+            linkBind: function (linkString) {
                 var linkChunks = linkString.split('|');
                 if (linkChunks[0].length === 0) {
                     return this.get('currentItem.' + linkChunks[1]);
@@ -289,10 +297,10 @@ app.localization.registerView('viajes');
         /// end add model properties
         /// start add model functions
 
-        onBarcodeScan: function(field) {
+        onBarcodeScan: function (field) {
             var addFormSetTarget = $(field.target).data().scannerName,
                 addFormData = this.get('addFormData');
-            _scanBarcode(function(err, result) {
+            _scanBarcode(function (err, result) {
                 if (err) {
                     alert(err);
                 } else {
@@ -302,7 +310,7 @@ app.localization.registerView('viajes');
         },
         /// end add model functions
 
-        onShow: function(e) {
+        onShow: function (e) {
             this.set('addFormData', {
                 viaticos: '',
                 kmfin: '',
@@ -322,14 +330,14 @@ app.localization.registerView('viajes');
             /// end add form show
 
         },
-        onCancel: function() {
+        onCancel: function () {
             /// start add model cancel
 
             app.clearFormDomData('add-item-view');
             /// end add model cancel
 
         },
-        onSaveClick: function(e) {
+        onSaveClick: function (e) {
             var addFormData = this.get('addFormData'),
                 filter = viajesModel && viajesModel.get('paramFilter'),
                 dataSource = viajesModel.get('dataSource'),
@@ -351,7 +359,7 @@ app.localization.registerView('viajes');
                 /// end add form data save
 
                 dataSource.add(addModel);
-                dataSource.one('change', function(e) {
+                dataSource.one('change', function (e) {
                     app.mobileApp.navigate('#:back');
                 });
 
@@ -367,7 +375,7 @@ app.localization.registerView('viajes');
             var guiaReader = new FileReader(),
                 guiaField = $("#guia")[0].files[0];
 
-            guiaReader.onload = function() {
+            guiaReader.onload = function () {
                 var file = {
                     "Filename": guiaField.name,
                     "ContentType": guiaField.type,
@@ -376,7 +384,7 @@ app.localization.registerView('viajes');
 
                 dataProvider.files.create(file,
                     success.bind(this, "guiaIndex"),
-                    function(error) {
+                    function (error) {
                         alert(JSON.stringify(error));
                     });
             };
@@ -414,10 +422,10 @@ app.localization.registerView('viajes');
         /// end edit model properties
         /// start edit model functions
 
-        onBarcodeScan: function(field) {
+        onBarcodeScan: function (field) {
             var editFormSetTarget = $(field.target).data().scannerName,
                 editFormData = this.get('editFormData');
-            _scanBarcode(function(err, result) {
+            _scanBarcode(function (err, result) {
                 if (err) {
                     alert(err);
                 } else {
@@ -428,7 +436,7 @@ app.localization.registerView('viajes');
         /// end edit model functions
 
         editFormData: {},
-        onShow: function(e) {
+        onShow: function (e) {
             var that = this,
                 itemUid = e.view.params.uid,
                 dataSource = viajesModel.get('dataSource'),
@@ -458,11 +466,11 @@ app.localization.registerView('viajes');
             /// end edit form show
 
         },
-        linkBind: function(linkString) {
+        linkBind: function (linkString) {
             var linkChunks = linkString.split(':');
             return linkChunks[0] + ':' + this.get('itemData.' + linkChunks[1]);
         },
-        onSaveClick: function(e) {
+        onSaveClick: function (e) {
             var that = this,
                 editFormData = this.get('editFormData'),
                 itemData = this.get('itemData'),
@@ -488,14 +496,14 @@ app.localization.registerView('viajes');
 
                 /// end edit form data prepare
 
-                dataSource.one('sync', function(e) {
+                dataSource.one('sync', function (e) {
                     /// start edit form data save success
                     /// end edit form data save success
 
                     app.mobileApp.navigate('#:back');
                 });
 
-                dataSource.one('error', function() {
+                dataSource.one('error', function () {
                     dataSource.cancelChanges(itemData);
                 });
 
@@ -511,7 +519,7 @@ app.localization.registerView('viajes');
                 guiaField = $("#guia")[0].files[0];
             if (guiaField) {
                 totalUploadFields++;
-                guiaReader.onload = function() {
+                guiaReader.onload = function () {
                     var file = {
                         "Filename": guiaField.name,
                         "ContentType": guiaField.type,
@@ -520,7 +528,7 @@ app.localization.registerView('viajes');
 
                     dataProvider.files.create(file,
                         successEdit.bind(this, "guiaIndex"),
-                        function(error) {
+                        function (error) {
                             alert(JSON.stringify(error));
                         });
                 };
@@ -534,21 +542,21 @@ app.localization.registerView('viajes');
             /// end edit form save
 
             /// start edit form save handler
-if (totalUploadFields === 0) {
-    editModel();
-}
+            if (totalUploadFields === 0) {
+                editModel();
+            }
 
-function successEdit(fileName, data) {
-    uploaded[fileName] = data.result;
-    uploaded.length++;
+            function successEdit(fileName, data) {
+                uploaded[fileName] = data.result;
+                uploaded.length++;
 
-    if (uploaded.length == totalUploadFields) {
-        editModel(uploaded);
-    }
-}
-/// end edit form save handler
+                if (uploaded.length == totalUploadFields) {
+                    editModel(uploaded);
+                }
+            }
+            /// end edit form save handler
         },
-        onCancel: function() {
+        onCancel: function () {
             /// start edit form cancel
             /// end edit form cancel
         }
@@ -567,7 +575,7 @@ function successEdit(fileName, data) {
         parent.set('viajesModel', viajesModel);
     }
 
-    parent.set('onShow', function(e) {
+    parent.set('onShow', function (e) {
         var param = e.view.params.filter ? JSON.parse(e.view.params.filter) : null,
             isListmenu = false,
             backbutton = e.view.element && e.view.element.find('header [data-role="navbar"] .backButtonWrapper'),
@@ -588,6 +596,8 @@ function successEdit(fileName, data) {
         dataSource = new kendo.data.DataSource(dataSourceOptions);
         viajesModel.set('dataSource', dataSource);
         fetchFilteredData(param);
+
+        console.log(dataSource);
     });
 
 })(app.viajes);

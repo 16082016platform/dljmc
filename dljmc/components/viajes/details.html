@@ -12,63 +12,43 @@
         <div class="km-listview-wrapper">
             <ul class="km-listview km-list km-listinset details-fields">
                 <li>
-                    <h3 data-bind="text: currentItem.numero"></h3></li>
+                    <span class="flaticon-losing-result-of-slot-machine">Número de viaje:  </span>
+                    <span data-bind="html: currentItem.numero"></span>
+                </li>
                 <li>
-                    <div data-bind="html: currentItem.viaticos"></div>
+                    <span class="flaticon-losing-result-of-slot-machine">Fecha:  </span>
+                    <span data-bind="html: currentItem.CreatedAt"></span>
+                </li>
+                <li>
+                    <span class="flaticon-losing-result-of-slot-machine">Creador:  </span>
+                    <span data-bind="html: currentItem.UserExpanded"></span>
+                </li>
+                <li>
+                    <span class="flaticon-money-paper-of-dollars">Monto de viáticos:  </span>
+                    <span data-bind="html: currentItem.viaticos"></span>
                 </li>
 
-                <li class="detail-content-item">
-
-
-                    <label id="valeField" class="km-label-above field field--text-block">
-
-                        <span class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm13.vale.title"></span>
-
-
-                        <div class="textBlock field__content" data-bind="html: currentItem.vale"></div>
-
-                    </label>
-
-
+                <li>
+                    <span class="flaticon-qr-code-scan">Vale de combustible:  </span>
+                    <span data-bind="html: currentItem.vale"></span>
                 </li>
-                <li class="detail-content-item">
 
-
-                    <div id="kmfinField" class="field field--heading">
-
-                        <h1 data-bind="html: currentItem.kmfin"></h1>
-
-                    </div>
-
-
+                <li>
+                    <span class="flaticon-location-on-road">KM de inicio:  </span>
+                    <span data-bind="html: currentItem.kminicio"></span>
                 </li>
-                <li class="detail-content-item">
 
-
-                    <div id="viaticosField" class="field field--heading">
-
-                        <h1 data-bind="html: currentItem.viaticos"></h1>
-
-                    </div>
-
-
+                <li>
+                    <span class="flaticon-location-on-road">KM de fin:  </span>
+                    <span data-bind="html: currentItem.kmfin"></span>
                 </li>
-                <li class="detail-content-item">
 
 
-                    <div id="kminicioField" class="field field--heading">
-
-                        <h1 data-bind="html: currentItem.kminicio"></h1>
-
-                    </div>
-
-
-                </li>
                 <li class="detail-content-item">
 
                     <div id="guiaField" class="km-label-above imageListItem field field--image">
 
-                        <div class="field__label" data-bind="text: strings.viajes.viajesModel.editableListForm13.guia.title"></div>
+                        <div class="field__label flaticon-camera-retro">Número de guía</div>
 
                         <div class="align-center field__content">
 

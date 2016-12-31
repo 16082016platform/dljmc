@@ -20,6 +20,8 @@
     <script src="bower_components/leaflet/dist/leaflet.js"></script>
 
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCG4jUolof0jhqQu0j1aNqSWfW_ms-wRKg&sensor=true"></script>
+
+    <link rel="stylesheet" type="text/css" href="styles/icons/flaticon.css"> 
 </head>
 
 <body id="kendoUiMobileApp">
@@ -51,14 +53,15 @@
             </div>
         </header>
         <ul id="navigation-container" data-role="listview">
-            <li><a href="components/login/view.html" data-icon="home"><span class="navigation-link-text" data-bind="text: strings.login.title"></span></a></li>
+            <!-- <li><a href="components/login/view.html" data-icon="home"><span class="navigation-link-text" data-bind="text: strings.login.title"></span></a></li> -->
 
-            <li><a href="components/home/view.html" data-icon="favorites"><span class="navigation-link-text" data-bind="text: strings.home.title"></span></a></li>
+            <li><a href="components/home/view.html"><span class="navigation-link-text flaticon-frontal-truck" data-bind="text: strings.home.title"></span></a></li>
 
-            <li><a href="components/viajes/view.html" data-icon="organize"><span class="navigation-link-text" data-bind="text: strings.viajes.title"></span></a></li>
+            <li><a href="components/viajes/view.html"><span class="navigation-link-text flaticon-distance-to-travel-between-two-points" data-bind="text: strings.viajes.title"></span></a></li>
 
-            <li><a href="components/localizaciones/view.html" data-icon="globe"><span class="navigation-link-text" data-bind="text: strings.localizaciones.title"></span></a></li>
-            <li id="loginModellogout"><a href="components/login/view.html?logout=true" data-position="end" data-icon="action"><span class="navigation-link-text" data-bind="text: strings.login.loginModel.logoutLabel"></span></a></li>
+            <li><a href="components/localizaciones/view.html"><span class="navigation-link-text flaticon-radio-control" data-bind="text: strings.localizaciones.title"></span></a></li>
+
+            <li id="loginModellogout"><a href="components/login/view.html?logout=true" data-position="end"><span class="navigation-link-text flaticon-login-left-arrow" data-bind="text: strings.login.loginModel.logoutLabel"></span></a></li>
         </ul>
     </div>
     <div id="notify" class="notify-pop-up">
