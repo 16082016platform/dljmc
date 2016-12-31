@@ -262,8 +262,6 @@ app.localization.registerView('viajes');
 
                 /// start detail form initialization
 
-                itemModel.valeImage = processImage(itemModel.vale);
-
                 itemModel.guiaImage = processImage(itemModel.guia);
 
                 /// end detail form initialization

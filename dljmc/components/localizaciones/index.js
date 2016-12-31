@@ -1,8 +1,8 @@
 'use strict';
 
 app.localizaciones = kendo.observable({
-    onShow: function() {},
-    afterShow: function() {}
+    onShow: function () { },
+    afterShow: function () { }
 });
 app.localization.registerView('localizaciones');
 
@@ -10,12 +10,12 @@ app.localization.registerView('localizaciones');
 // Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes
 
 // END_CUSTOM_CODE_localizaciones
-(function(parent) {
+(function (parent) {
     var dataProvider = app.data.backendServices,
         /// start global model properties
 
         markerLayers = {},
-        getLocation = function(options) {
+        getLocation = function (options) {
             var d = new $.Deferred();
             if (options === undefined) {
                 options = {
@@ -23,19 +23,19 @@ app.localization.registerView('localizaciones');
                 };
             }
             navigator.geolocation.getCurrentPosition(
-                function(position) {
+                function (position) {
                     d.resolve(position);
                 },
-                function(error) {
+                function (error) {
                     d.reject(error);
                 },
                 options);
             return d.promise();
         },
 
-        getDistance = function(data, callback) {
+        getDistance = function (data, callback) {
             getLocation()
-                .then(function(userPosition) {
+                .then(function (userPosition) {
                     var position = L.latLng(userPosition.coords.latitude, userPosition.coords.longitude),
                         markerPosition = L.latLng(data.latitude, data.longitude),
                         distance;
@@ -51,7 +51,7 @@ app.localization.registerView('localizaciones');
         },
         /// end global model properties
 
-        fetchFilteredData = function(paramFilter, searchFilter) {
+        fetchFilteredData = function (paramFilter, searchFilter) {
             var model = parent.get('localizacionesModel'),
                 dataSource;
 
@@ -80,9 +80,9 @@ app.localization.registerView('localizaciones');
             }
         },
 
-        flattenLocationProperties = function(dataItem) {
+        flattenLocationProperties = function (dataItem) {
             var propName, propValue,
-                isLocation = function(value) {
+                isLocation = function (value) {
                     return propValue && typeof propValue === 'object' &&
                         propValue.longitude && propValue.latitude;
                 };
@@ -104,7 +104,7 @@ app.localization.registerView('localizaciones');
                 typeName: 'localizaciones',
                 dataProvider: dataProvider
             },
-            change: function(e) {
+            change: function (e) {
                 var data = this.data();
                 for (var i = 0; i < data.length; i++) {
                     var dataItem = data[i];
@@ -114,7 +114,7 @@ app.localization.registerView('localizaciones');
 
                 }
             },
-            error: function(e) {
+            error: function (e) {
 
                 if (e.xhr) {
                     var errorText = "";
@@ -146,7 +146,7 @@ app.localization.registerView('localizaciones');
         /// end data sources
         localizacionesModel = kendo.observable({
             _dataSourceOptions: dataSourceOptions,
-            fixHierarchicalData: function(data) {
+            fixHierarchicalData: function (data) {
                 var result = {},
                     layout = {};
 
@@ -197,13 +197,13 @@ app.localization.registerView('localizaciones');
 
                 return result;
             },
-            itemClick: function(e) {
+            itemClick: function (e) {
                 var dataItem = e.dataItem || localizacionesModel.originalItem;
 
                 app.mobileApp.navigate('#components/localizaciones/details.html?uid=' + dataItem.uid);
 
             },
-            detailsShow: function(e) {
+            detailsShow: function (e) {
                 var uid = e.view.params.uid,
                     dataSource = localizacionesModel.get('dataSource'),
                     itemModel = dataSource.getByUid(uid);
@@ -212,14 +212,14 @@ app.localization.registerView('localizaciones');
 
                 /// start detail form show
 
-                getDistance(itemModel.ubicacion, function(value) {
+                getDistance(itemModel.ubicacion, function (value) {
                     localizacionesModel.set('getDistance', value);
                 });
 
                 /// end detail form show
 
             },
-            setCurrentItemByUid: function(uid) {
+            setCurrentItemByUid: function (uid) {
                 var item = uid,
                     dataSource = localizacionesModel.get('dataSource'),
                     itemModel = dataSource.getByUid(item);
@@ -237,7 +237,7 @@ app.localization.registerView('localizaciones');
 
                 return itemModel;
             },
-            linkBind: function(linkString) {
+            linkBind: function (linkString) {
                 var linkChunks = linkString.split('|');
                 if (linkChunks[0].length === 0) {
                     return this.get('currentItem.' + linkChunks[1]);
@@ -262,7 +262,7 @@ app.localization.registerView('localizaciones');
         parent.set('localizacionesModel', localizacionesModel);
     }
 
-    parent.set('onShow', function(e) {
+    parent.set('onShow', function (e) {
         var param = e.view.params.filter ? JSON.parse(e.view.params.filter) : null,
             isListmenu = false,
             backbutton = e.view.element && e.view.element.find('header [data-role="navbar"] .backButtonWrapper'),
@@ -283,6 +283,57 @@ app.localization.registerView('localizaciones');
         dataSource = new kendo.data.DataSource(dataSourceOptions);
         localizacionesModel.set('dataSource', dataSource);
         fetchFilteredData(param);
+
+        dataSource.fetch(function () {
+            
+            //var index = dataSource.indexOf(dataItem);
+            //console.log(index); // displays "0"
+
+            var map;
+            var bounds = new google.maps.LatLngBounds();
+            var mapOptions = {
+                mapTypeId: 'roadmap'
+            };
+
+            // Display a map on the page
+            map = new google.maps.Map(document.getElementById("map"), mapOptions);
+            map.setTilt(45);
+
+            // Display multiple markers on a map
+            var infoWindow = new google.maps.InfoWindow(), marker, i;
+
+            // Loop through our array of markers & place each one on the map  
+            for (i = 0; i < dataSource.total(); i++) {
+                var dataItem = dataSource.at(i);
+                var position = new google.maps.LatLng(dataItem.ubicacion.latitude, dataItem.ubicacion.longitude);
+                bounds.extend(position);
+                marker = new google.maps.Marker({
+                    position: position,
+                    map: map,
+                    title: dataItem.id
+                });
+
+                // Allow each marker to have an info window    
+                google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                    return function () {
+                        map.setZoom(15);
+                        //bounds.extend(this.getPosition());
+                        map.setCenter(this.getPosition());
+                        infoWindow.setContent( dataSource.at(i).id );
+                        infoWindow.open(map, marker);
+                    }
+                })(marker, i));
+
+                // Automatically center the map fitting all markers on the screen
+                map.fitBounds(bounds);
+            }
+
+            // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+            var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function (event) {
+                this.setZoom(12);
+                google.maps.event.removeListener(boundsListener);
+            });
+        });
     });
 
 })(app.localizaciones);

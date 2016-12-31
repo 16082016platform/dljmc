@@ -139,10 +139,9 @@
                   "dataBindingRelationChildren": "[]",
                   "dataBindingMultipleSelectChildren": "[]",
                   "title": "Vale de combustible",
-                  "inputType": "image",
-                  "titlePosition": "top",
-                  "alignment": "center",
-                  "dataBindingImage": "vale"
+                  "inputType": "textBlock",
+                  "wideFieldTitlePosition": "top",
+                  "dataBindingOptional": "vale"
                 },
                 {
                   "type": "kendo-ui-mobile:editableListFormField",
@@ -332,7 +331,7 @@
                   "title": "Número de guía",
                   "inputType": "fileUpload",
                   "titlePosition": "top",
-                  "fileUploadPlaceholder": "Foto de guía",
+                  "fileUploadPlaceholder": "Tomar foto a la guía",
                   "dataBinding": "guia"
                 }
               ],
@@ -435,7 +434,7 @@
   "navigation": "drawer",
   "view": "login",
   "skin": "nova",
-  "skinMainColor": "#32364c",
+  "skinMainColor": "#000000",
   "skinTextColor": "#ffffff",
-  "skinAccentColor": "#ff4350"
+  "skinAccentColor": "#ffcc29"
 }

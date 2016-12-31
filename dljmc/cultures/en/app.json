@@ -37,13 +37,8 @@
       "addScreenHeaderValue": "Ingresar viaje",
       "editScreenHeaderValue": "Editar",
       "editableListForm13": {
-        "guia": {
-          "title": "Número de guía",
-          "fileUploadPlaceholder": "Foto de guía"
-        },
-        "kminicio": {
-          "title": "KM inicio",
-          "placeholder": "Ingrese KM de inicio"
+        "vale": {
+          "title": "Vale de combustible"
         },
         "kmfin": {
           "title": "KM de fin",
@@ -53,8 +48,13 @@
           "title": "Monto de viáticos",
           "placeholder": "Ingrese el monto de viáticos"
         },
-        "vale": {
-          "title": "Vale de combustible"
+        "kminicio": {
+          "title": "KM inicio",
+          "placeholder": "Ingrese KM de inicio"
+        },
+        "guia": {
+          "title": "Número de guía",
+          "fileUploadPlaceholder": "Tomar foto a la guía"
         }
       },
       "editableListForm14": {

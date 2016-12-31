@@ -18,6 +18,8 @@
     <script src="dataProviders/backendServices.js"></script>
     <link href="bower_components/leaflet/dist/leaflet.css" rel="stylesheet">
     <script src="bower_components/leaflet/dist/leaflet.js"></script>
+
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCG4jUolof0jhqQu0j1aNqSWfW_ms-wRKg&sensor=true"></script>
 </head>
 
 <body id="kendoUiMobileApp">
@@ -42,14 +44,14 @@
         </header>
     </div>
 
-    <div id="appDrawer" data-role="drawer" data-title="DLjmc" data-swipe-to-open='false'>
+    <div id="appDrawer" data-role="drawer" data-title="Navigation">
         <header data-role="header">
             <div data-role="navbar">
                 <span data-role="view-title"></span>
             </div>
         </header>
         <ul id="navigation-container" data-role="listview">
-            <!--li><a href="components/login/view.html" data-icon="home"><span class="navigation-link-text" data-bind="text: strings.login.title"></span></a></li-->
+            <li><a href="components/login/view.html" data-icon="home"><span class="navigation-link-text" data-bind="text: strings.login.title"></span></a></li>
 
             <li><a href="components/home/view.html" data-icon="favorites"><span class="navigation-link-text" data-bind="text: strings.home.title"></span></a></li>
 
@@ -67,7 +69,6 @@
 
     <!-- START_CUSTOM_CODE_kendoUiMobileApp -->
     <!-- Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes -->
-
     <!-- END_CUSTOM_CODE_kendoUiMobileApp -->
     <div id="locationEditor" class="locationEditor km-widget km-view" style="display: none;">
         <header class="km-header">
