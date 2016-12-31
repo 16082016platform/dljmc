@@ -266,8 +266,6 @@ app.localization.registerView('viajes');
 
                 itemModel.CreatedAt = kendo.toString(itemModel.CreatedAt, "d/M/yyyy h:mm tt");
 
-                console.log(itemModel.CreatedAt);
-
                 /// start detail form initialization
 
                 itemModel.guiaImage = processImage(itemModel.guia);
@@ -597,7 +595,6 @@ app.localization.registerView('viajes');
         viajesModel.set('dataSource', dataSource);
         fetchFilteredData(param);
 
-        console.log(dataSource);
     });
 
 })(app.viajes);

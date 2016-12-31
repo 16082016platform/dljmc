@@ -78,6 +78,8 @@ app.localization.registerView('localizaciones');
             } else {
                 dataSource.filter({});
             }
+
+            localizacionesModel.cargarMapa(dataSource);
         },
 
         flattenLocationProperties = function (dataItem) {
@@ -102,7 +104,11 @@ app.localization.registerView('localizaciones');
             type: 'everlive',
             transport: {
                 typeName: 'localizaciones',
-                dataProvider: dataProvider
+                dataProvider: dataProvider,
+                read: {
+                    headers: { "X-Everlive-Expand": JSON.stringify({ "unidad": { "TargetTypeName": "unidades", "ReturnAs": "unidadesExpanded", "SingleField": "placa" },
+                    "Owner": { "TargetTypeName": "Users", "ReturnAs": "usersExpanded", "SingleField": "DisplayName" } }) }
+                }
             },
             change: function (e) {
                 var data = this.data();
@@ -146,6 +152,71 @@ app.localization.registerView('localizaciones');
         /// end data sources
         localizacionesModel = kendo.observable({
             _dataSourceOptions: dataSourceOptions,
+            searchChange: function (e) {
+                var searchVal = e.target.value,
+                    searchFilter;
+
+                if (searchVal) {
+                    searchFilter = {
+                        field: 'placa',
+                        operator: 'contains',
+                        value: searchVal
+                    };
+                }
+                fetchFilteredData(localizacionesModel.get('paramFilter'), searchFilter);
+            },
+            cargarMapa: function (dataSource) {
+                dataSource.fetch(function () {
+
+                    //var index = dataSource.indexOf(dataItem);
+                    //console.log(index); // displays "0"
+
+                    var map;
+                    var bounds = new google.maps.LatLngBounds();
+                    var mapOptions = {
+                        mapTypeId: 'roadmap'
+                    };
+
+                    // Display a map on the page
+                    map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                    map.setTilt(45);
+
+                    // Display multiple markers on a map
+                    var infoWindow = new google.maps.InfoWindow(), marker, i;
+
+                    // Loop through our array of markers & place each one on the map  
+                    for (i = 0; i < dataSource.total(); i++) {
+                        var dataItem = dataSource.at(i);
+                        var position = new google.maps.LatLng(dataItem.ubicacion.latitude, dataItem.ubicacion.longitude);
+                        bounds.extend(position);
+                        marker = new google.maps.Marker({
+                            position: position,
+                            map: map,
+                            title: dataItem.id
+                        });
+
+                        // Allow each marker to have an info window    
+                        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                            return function () {
+                                map.setZoom(15);
+                                //bounds.extend(this.getPosition());
+                                map.setCenter(this.getPosition());
+                                infoWindow.setContent("<h1 onclick='itemClickMapa(" + '"' + dataItem.uid + '"' + ");'>" + dataSource.at(i).placa + "</h1>");
+                                infoWindow.open(map, marker);
+                            }
+                        })(marker, i));
+
+                        // Automatically center the map fitting all markers on the screen
+                        map.fitBounds(bounds);
+                    }
+
+                    // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+                    var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function (event) {
+                        this.setZoom(12);
+                        google.maps.event.removeListener(boundsListener);
+                    });
+                });
+            },
             fixHierarchicalData: function (data) {
                 var result = {},
                     layout = {};
@@ -199,9 +270,7 @@ app.localization.registerView('localizaciones');
             },
             itemClick: function (e) {
                 var dataItem = e.dataItem || localizacionesModel.originalItem;
-
                 app.mobileApp.navigate('#components/localizaciones/details.html?uid=' + dataItem.uid);
-
             },
             detailsShow: function (e) {
                 var uid = e.view.params.uid,
@@ -223,7 +292,6 @@ app.localization.registerView('localizaciones');
                 var item = uid,
                     dataSource = localizacionesModel.get('dataSource'),
                     itemModel = dataSource.getByUid(item);
-
                 if (!itemModel.unidad) {
                     itemModel.unidad = String.fromCharCode(160);
                 }
@@ -284,56 +352,7 @@ app.localization.registerView('localizaciones');
         localizacionesModel.set('dataSource', dataSource);
         fetchFilteredData(param);
 
-        dataSource.fetch(function () {
-
-            //var index = dataSource.indexOf(dataItem);
-            //console.log(index); // displays "0"
-
-            var map;
-            var bounds = new google.maps.LatLngBounds();
-            var mapOptions = {
-                mapTypeId: 'roadmap'
-            };
-
-            // Display a map on the page
-            map = new google.maps.Map(document.getElementById("map"), mapOptions);
-            map.setTilt(45);
-
-            // Display multiple markers on a map
-            var infoWindow = new google.maps.InfoWindow(), marker, i;
-
-            // Loop through our array of markers & place each one on the map  
-            for (i = 0; i < dataSource.total(); i++) {
-                var dataItem = dataSource.at(i);
-                var position = new google.maps.LatLng(dataItem.ubicacion.latitude, dataItem.ubicacion.longitude);
-                bounds.extend(position);
-                marker = new google.maps.Marker({
-                    position: position,
-                    map: map,
-                    title: dataItem.id
-                });
-
-                // Allow each marker to have an info window    
-                google.maps.event.addListener(marker, 'click', (function (marker, i) {
-                    return function () {
-                        map.setZoom(15);
-                        //bounds.extend(this.getPosition());
-                        map.setCenter(this.getPosition());
-                        infoWindow.setContent(dataSource.at(i).id);
-                        infoWindow.open(map, marker);
-                    }
-                })(marker, i));
-
-                // Automatically center the map fitting all markers on the screen
-                map.fitBounds(bounds);
-            }
-
-            // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
-            var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function (event) {
-                this.setZoom(12);
-                google.maps.event.removeListener(boundsListener);
-            });
-        });
+        localizacionesModel.cargarMapa(dataSource);
     });
 
 })(app.localizaciones);
@@ -347,20 +366,23 @@ app.localization.registerView('localizaciones');
 function onSelect(e) {
     //console.log(this.currentItem().text()); //previous selected
     //console.log(e.item.text()); //newly selected
-    console.log(e.item.index()); //newly selected
+    //console.log(e.item.index()); //newly selected
 
     switch (e.item.index()) {
         case 1:
-            $("#list").css("display", "block");
+            //$("#list").parent().css("width", "100%");
             $("#map").css("display", "none");
+            $("#list").css("display", "block");
+            $("#localizacionesScreen .km-scroll-container").css("transform","matrix(1, 0, 0, 1, 0, 0)");
             break;
         default:
-            $("#list").css("display", "none");
+            //$("#list").parent().css("width", "inherit");
             $("#map").css("display", "block");
+            $("#list").css("display", "none");
+            $("#localizacionesScreen .km-scroll-container").css("transform","matrix(1, 0, 0, 1, 0, 0)");
             break;
     }
-    return;
-    var tabstrip = e.item.data("kendoMobileTabStrip");
-    var currentItem = tabstrip.currentItem();
-    console.log(currentItem);
+}
+function itemClickMapa(uid) {
+    app.mobileApp.navigate('#components/localizaciones/details.html?uid=' + uid);
 }

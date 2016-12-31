@@ -732,7 +732,7 @@
     color: #000;
 }
 
-#viajesModelAddScreen li input{
+#viajesModelAddScreen li input {
     margin-left: 30px;
 }
 
@@ -744,6 +744,16 @@
     color: #000;
 }
 
-#viajesModelEditScreen li input{
+#viajesModelEditScreen li input {
     margin-left: 30px;
+}
+
+#localizacionesScreen .km-filter-form {
+    background-color: #000;
+}
+
+
+#localizacionesScreen a.km-button.km-state-active span.km-text,
+#localizacionesScreen a.km-button.km-state-active span.km-icon::after{
+    color: #ffcc29;
 }

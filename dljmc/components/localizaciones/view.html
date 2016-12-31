@@ -2,7 +2,7 @@
     <header data-role="header">
         <div data-role="navbar" class="header-text">
 
-            <span data-bind="text: strings.localizaciones.title"></span>
+            <span data-bind="text: strings.localizaciones.title" class="flaticon-radio-control"></span>
 
             <a data-role="button" href="#appDrawer" data-rel="drawer" data-align="left" data-icon="drawer-button"></a>
 
@@ -11,8 +11,12 @@
           <a data-icon="globe">Map</a>
           <a data-icon="info">Info</a>
         </div>
+        <form class="km-filter-form custom-filter">
+            <div class="km-filter-wrap">
+                <input type="search" placeholder="Buscar..." data-bind="events:{keyup: localizacionesModel.searchChange}">
+            </div>
+        </form>
     </header>
-    <div id="map"></div>
     
     <ul id="list" style="display:none;" class="masterDetailView" data-role="listview" data-auto-bind="false" data-style="inset" data-template="localizacionesModelTemplate" data-bind="source: localizacionesModel.dataSource, events: {click: localizacionesModel.itemClick}" data-pull-to-refresh="false"
     data-endless-scroll="false">
@@ -21,9 +25,10 @@
         <div class="image-with-text">
             # data = app.localizaciones.localizacionesModel.fixHierarchicalData(data); #
 
-            <h3>#: data['unidad'] #</h3>
-            <p>#: data['ubicacion'] #</p>
+            <h3>#: data['unidadesExpanded'] #</h3>
+            <p>#: kendo.toString(data['CreatedAt'], "d/M/yyyy h:mm tt") #</p>
         </div>
     </script>
     
+    <div id="map"></div>
 </div>
