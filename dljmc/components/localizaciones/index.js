@@ -115,7 +115,9 @@ app.localization.registerView('localizaciones');
                 for (var i = 0; i < data.length; i++) {
                     var dataItem = data[i];
 
+                
                     /// start flattenLocation property
+                    //flattenLocationProperties(dataItem);
                     /// end flattenLocation property
 
                 }
